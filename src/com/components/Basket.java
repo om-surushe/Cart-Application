@@ -1,18 +1,14 @@
 package com.components;
 
-// import java.util.ArrayList;
-// import java.util.List;
-
 public class Basket {
 
-    private List<item> order; //= new ArrayList<item>();
+    private List<item> order; 
     private int OrderCost;
     private boolean isPaid;
     private String orderID;
 
     public Basket(String orderID) {
         this.orderID = orderID;
-        // this.order = new ArrayList<item>();
     }
 
     public Basket(String orderID, List<item> order) {
@@ -24,7 +20,7 @@ public class Basket {
         order.add(item);
     }
 
-    public void removeItem(int item) {
+    public void removeItem(item item) {
         order.remove(item);
     }
 

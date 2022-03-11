@@ -1,22 +1,20 @@
-package com.hotel;
+package com.components;
 // import java.util.ArrayList;
 // import java.util.List;
 import java.util.Scanner;
 
-import com.components.Basket;
-import com.components.Customer;
-import com.components.List;
-import com.components.item;
-
-class Kfc {
+public class Kfc {
 
     private List<Customer> customers;// = new ArrayList<Customer>();
     private List<item> menu; // = new ArrayList<item>();
-    static Scanner sc = new Scanner(System.in);
-    public static int id = 1;
+    
+    public List<Customer> getCustomers() {
+        return customers;
+    }
 
     public void Admin() {
         int choice = 0;
+        Scanner sc = new Scanner(System.in);
         do {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Make your menu card at KFC");
@@ -42,35 +40,19 @@ class Kfc {
                     sc.nextLine();
                     System.out.println("Enter item name");
                     String itemName1 = sc.nextLine();
-                    boolean flag = false;
-                    // for (item i : menu) {
-                    //     if (i.getItemName().equals(itemName1)) {
-                    //         menu.remove(i);
-                    //         System.out.println("Item removed");
-                    //         flag = true;
-                    //         break;
-                    //     }
-                    // }
                     for (int i = 0; i < menu.size(); i++) {
-                        if (((item) menu.get(i)).getItemName().equals(itemName1)) {
-                            menu.remove(i);
-                            System.out.println("Item removed");
-                            flag = true;
+                        if(itemName1.equals(menu.getArray(i).getItemName()))
+                        {
+                            menu.remove(menu.getArray(i));
+                            System.out.println("Successfully removed");
                             break;
                         }
-                            
-                        }
-                    if (!flag) {
-                        System.out.println("Item not found");
                     }
                     break;
                 case 3:
                     for (int i = 0; i < menu.size(); i++) {
-                        System.out.println(String.format("%20s %20d", ((item) menu.get(i)).getItemName(), ((item) menu.get(i)).getItemPrice()));
-                            
-                        }
-                    // for (item i : menu) {
-                    // }
+                        System.out.println(String.format("%20s %20d", ((item) menu.getArray(i)).getItemName(), ((item) menu.getArray(i)).getItemPrice()));
+                    }   
                     break;
 
                 case 4:
@@ -82,12 +64,13 @@ class Kfc {
                     break;
             }
         } while (choice != 4);
-
+        sc.close();
         return;
     }
 
     public void placeOrder(Customer customer) {
         int choice = 0;
+        Scanner sc = new Scanner(System.in);
         do {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Welcome to KFC");
@@ -102,7 +85,7 @@ class Kfc {
             switch (choice) {
                 case 0:
                     for (int i = 0; i < menu.size(); i++) {
-                        System.out.println(String.format("%20s %20d", ((item) menu.get(i)).getItemName(), ((item) menu.get(i)).getItemPrice()));
+                        System.out.println(String.format("%20s %20d",  menu.getArray(i).getItemName(), menu.getArray(i).getItemPrice()));
                     }
                     break;
 
@@ -112,10 +95,10 @@ class Kfc {
                     String itemName = sc.nextLine();
                     boolean flag = false;
                     for (int i = 0; i < menu.size(); i++) {
-                        if(((item) menu.get(i)).getItemName().equals(itemName)){
-                            customer.getBasket().addItem((item) menu.get(i));
+                        if( menu.getArray(i).getItemName().equals(itemName)){
+                            customer.getBasket().addItem(menu.getArray(i));
                             flag = true;
-                            customer.setPayment(customer.getPayment()+((item) menu.get(i)).getItemPrice());
+                            customer.setPayment(customer.getPayment()+(menu.getArray(i)).getItemPrice());
                             System.out.println("Item added");
                             System.out.println("Total price: "+customer.getPayment());
                             break;
@@ -130,11 +113,12 @@ class Kfc {
                     System.out.println("Enter item name");
                     String itemName1 = sc.nextLine();
                     boolean flag1 = false;
-                    for (item i : customer.getBasket().getOrder()) {
-                        if (i.getItemName().equals(itemName1)) {
-                            customer.getBasket().removeItem(i);
+                    for (int i = 0; i < customer.getBasket().getOrder().size(); i++) {
+                        if(itemName1.equals(customer.getBasket().getOrder().getArray(i).getItemName()))
+                        {
+                            customer.getBasket().removeItem(customer.getBasket().getOrder().getArray(i));
                             flag1 = true;
-                            customer.setPayment(customer.getPayment()-i.getItemPrice());
+                            customer.setPayment(customer.getPayment()- customer.getBasket().getOrder().getArray(i).getItemPrice());
                             System.out.println("Item removed");
                             System.out.println("Total price: "+customer.getPayment());
                             break;
@@ -145,8 +129,8 @@ class Kfc {
                     }
                     break;
                 case 3:
-                    for (item i : customer.getBasket().getOrder()) {
-                        System.out.println(String.format("%20s %20d", i.getItemName(), i.getItemPrice()));
+                    for (int i = 0; i < customer.getBasket().getOrder().size(); i++) {
+                        System.out.println(String.format("%20s %20d",  customer.getBasket().getOrder().getArray(i).getItemName(), customer.getBasket().getOrder().getArray(i).getItemPrice()));
                     }
                     System.out.println("Total price: "+customer.getPayment());
                     break;
@@ -160,12 +144,13 @@ class Kfc {
                     break;
             }
         } while (choice != 4);
+        sc.close();
         return;
     }
 
     public void CustomerSide(Customer customer) throws InterruptedException {
         int choice = 0;
-
+        Scanner sc = new Scanner(System.in);
         do {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Welcome to KFC");
@@ -177,8 +162,8 @@ class Kfc {
             System.out.println("--------------------------------------------------------------------------------");
             switch (choice) {
                 case 1:
-                    for (item i : menu) {
-                        System.out.println(String.format("%20s %20d", i.getItemName(), i.getItemPrice()));
+                    for (int i = 0; i < menu.size(); i++) {
+                        System.out.println(String.format("%20s %20d", menu.getArray(i).getItemName(), menu.getArray(i).getItemPrice()));
                     }
                     break;
                 case 2:
@@ -196,49 +181,93 @@ class Kfc {
                     break;
             }
         } while (choice != 3);
+        sc.close();
         return;
     }
 
-    public static void main(String[] args) throws Exception {
-        Kfc kfc = new Kfc();
 
-        int ch1 = 0;
 
-        do {
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.println("Choose Your Interface");
-            System.out.println("1. Admin");
-            System.out.println("2. Customer");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-            int ch2 = sc.nextInt();
-            System.out.println("--------------------------------------------------------------------------------");
-            switch (ch2) {
-                case 1:
-                    kfc.Admin();
-                    break;
-                case 2:
-                    sc.nextLine();
-                    System.out.println("Enter your name");
-                    String name = sc.nextLine();
-                    System.out.println("Enter your contact number");
-                    String contactNo = sc.nextLine();
-                    Customer newCustomer = new Customer(new Basket(Integer.toString(id)), name, contactNo);
-                    kfc.customers.add(newCustomer);
-                    id++;
-                    kfc.CustomerSide(newCustomer);
-                    break;
-                case 3:
-                    System.exit(0);
-                default:
-                    System.out.println("Invalid choice");
-                    break;
-            }
-            {
 
-            }
-        } while (ch1 != 3);
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public static void main(String[] args) throws Exception {
+    //     Kfc kfc = new Kfc();
+
+    //     int ch1 = 0;
+
+    //     do {
+    //         System.out.println("--------------------------------------------------------------------------------");
+    //         System.out.println("Choose Your Interface");
+    //         System.out.println("1. Admin");
+    //         System.out.println("2. Customer");
+    //         System.out.println("3. Exit");
+    //         System.out.print("Enter your choice: ");
+    //         int ch2 = sc.nextInt();
+    //         System.out.println("--------------------------------------------------------------------------------");
+    //         switch (ch2) {
+    //             case 1:
+    //                 kfc.Admin();
+    //                 break;
+    //             case 2:
+    //                 sc.nextLine();
+    //                 System.out.println("Enter your name");
+    //                 String name = sc.nextLine();
+    //                 System.out.println("Enter your contact number");
+    //                 String contactNo = sc.nextLine();
+    //                 Customer newCustomer = new Customer(new Basket(Integer.toString(id)), name, contactNo);
+    //                 kfc.customers.add(newCustomer);
+    //                 id++;
+    //                 kfc.CustomerSide(newCustomer);
+    //                 break;
+    //             case 3:
+    //                 System.exit(0);
+    //             default:
+    //                 System.out.println("Invalid choice");
+    //                 break;
+    //         }
+    //         {
+
+    //         }
+    //     } while (ch1 != 3);
+
+    // }
 
 }

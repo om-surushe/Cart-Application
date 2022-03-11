@@ -3,10 +3,10 @@ package com.components;
 import java.lang.reflect.Array;
 
 public class List<E>{
-    private Array array;
+    private Array[] array;
 
-    public List(Class<E> type, int size) {
-        this.array = (Array) Array.newInstance(type, size);
+    public List(Class<E> type) {
+        this.array = new Array[50];
     }
 
     public int size() {
@@ -20,23 +20,52 @@ public class List<E>{
                 break;
             }
         }
+        return;
     }
 
-    public void remove(int i2){
+    public void remove(E obj){
+        boolean flag = false;
         for (int i = 0; i < this.size(); i++) {
-            if (Array.get(array, i) == i2) {
+            if(Array.get(array,i) == obj)
+            {
                 Array.set(array, i, null);
+                flag = true;
                 break;
             }
         }
+        if(!flag)
+        {
+            System.out.println("Item not Found");
+        }
+        return;
     }
 
-    public Object get(int index){
-        return Array.get(array, index);
+    public E getArray(int index){
+        if(index >= 0 || index <= this.size())
+        {
+            Object obj =  Array.get(array, index);
+            return (E) obj;
+        }
+        return null;
+        
     }
 
-    public void update(int index, E obj){
-        Array.set(array, index, obj);
+    public void update(E obj,E obj1){
+        boolean flag = false;  
+        for (int i = 0; i < this.size(); i++) {
+            if(Array.get(array,i) == obj)
+            {
+                Array.set(array, i, obj1);
+                flag = true;
+                break;
+            }
+        
+        }
+        if(!flag)
+        {
+            System.out.println("Nothing similar found to update");
+        }
+        return;
     }
 
 }
