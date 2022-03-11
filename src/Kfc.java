@@ -1,12 +1,12 @@
-package com.components;
+
 // import java.util.ArrayList;
 // import java.util.List;
 import java.util.Scanner;
 
 public class Kfc {
 
-    private List<Customer> customers;// = new ArrayList<Customer>();
-    private List<item> menu; // = new ArrayList<item>();
+    private List<Customer> customers = new List<Customer>(null);
+    private List<item> menu = new List<item>(null);
     
     public List<Customer> getCustomers() {
         return customers;

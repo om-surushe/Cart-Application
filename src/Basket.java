@@ -1,8 +1,6 @@
-package com.components;
-
 public class Basket {
 
-    private List<item> order; 
+    private List<item> order = new List<item>(null);; 
     private int OrderCost;
     private boolean isPaid;
     private String orderID;

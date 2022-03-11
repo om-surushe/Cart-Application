@@ -1,5 +1,3 @@
-package com.components;
-
 public class item {
     private String itemName;
     private int itemPrice;

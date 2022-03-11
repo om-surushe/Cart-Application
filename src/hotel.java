@@ -1,9 +1,5 @@
 import java.util.Scanner;
 
-import com.components.Basket;
-import com.components.Customer;
-import com.components.Kfc;
-
 public class hotel {
 
     public static void main(String[] args) throws Exception {

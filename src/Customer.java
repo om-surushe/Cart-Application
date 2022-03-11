@@ -1,5 +1,3 @@
-package com.components;
-
 public class Customer {
     private String name;
     private String contactNo;

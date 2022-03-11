@@ -1,12 +1,10 @@
-package com.components;
-
 import java.lang.reflect.Array;
 
 public class List<E>{
-    private Array[] array;
+    private Object array[];
 
     public List(Class<E> type) {
-        this.array = new Array[50];
+        this.array = new Object[10];
     }
 
     public int size() {
@@ -17,7 +15,7 @@ public class List<E>{
         for (int i = 0; i < this.size(); i++) {
             if (Array.get(array, i) == null) {
                 Array.set(array, i, obj);
-                break;
+                return;
             }
         }
         return;
@@ -64,6 +62,13 @@ public class List<E>{
         if(!flag)
         {
             System.out.println("Nothing similar found to update");
+        }
+        return;
+    }
+
+    public void display(){
+        for (int i = 0; i < this.size(); i++) {
+            System.out.println(Array.get(array, i));
         }
         return;
     }
